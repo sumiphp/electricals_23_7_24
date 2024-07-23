@@ -1,0 +1,91 @@
+<table id="customersList" class="text-center listingPage">
+    <thead class="text-capitalize">
+        <tr>
+            <th>Sl.No:</th>
+            <th>Name1</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Apartment</th>
+            <th>Country</th>
+            <th>Zip</th>
+            <th>Company Name</th>
+            <th>Message</th><th>City</th><th>State</th>
+            <th>Billing and Address</th>  <th>Order Details</th>
+            <th class="no-sorting">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php 
+        $slno = 0;
+        //print_r($billcustomers);
+        //die;
+        foreach ($billcustomers as $k => $customerVal) {
+            $slno++; ?>
+            <tr>
+                <td><?=$slno?></td>
+                <td><?=trim($customerVal['name'])?></td>
+                <td><?=$customerVal['email']?></td>
+                <td><?=$customerVal['phone']?></td>
+                <td><?=$customerVal['address']?></td>
+                <td><?=$customerVal['apartment']?></td>
+                <td><?=$customerVal['country']?></td>
+                <td><?=$customerVal['zip']?></td>
+                <td><?=$customerVal['companyname']?></td>
+                <td><?=$customerVal['message']?></td>
+                <td><?=$customerVal['city']?></td>
+                <td><?=$customerVal['state']?></td>
+
+                <td><?php $sflag=$customerVal['billshipflag'];
+                if ($sflag==1){
+echo "Billing Address";
+
+                }else{
+                    echo "Shipping Address";
+                }
+
+                
+                
+                
+                
+                ?></td>
+                
+
+               
+                <td>
+                    <ul class="d-flex justify-content-center">
+                        <!--li class="mr-3" data-customerid="<?=$customerVal['billingid']?>"><a href="<?=site_url()?>acp/Client/view/<?//=$customerVal['userid']?>" class="text-secondary"><i class="fa fa-eye"></i></a></li>
+                        <li class="mr-3" data-customerid="<?=$customerVal['billingid']?>"><a href="<?=site_url()?>acp/Client/edit/<?//=$customerVal['userid']?>" class="text-secondary"><i class="fa fa-pencil"></i></a></li-->
+                        <?php //if ($customerVal['cust_status'] == 1) { ?>
+                            <!--li title="Make unavailable" class="mr-3 lock" data-action="0" data-custid="<?//=$customerVal['userid']?>"><a href="#"><i class="fa fa-unlock text-success"></i></a></li>
+                        <?php //} else { ?>
+                            <li title="Make available" class="mr-3 unlock" data-action="1" data-custid="<?//=$customerVal['userid']?>"><a href="#"><i class="fa fa-lock text-danger"></i></a></li-->
+                        <?php //} ?>
+                        <!--li title="Remove" class="delete" data-action="2" data-toggle="modal" data-target="#confirm" data-custid="<?//=$customerVal['userid']?>"><a href="#" class="text-danger deleteCust"><i class="ti-trash"></i></a></li-->
+
+                        <li data-custid="<?=$customerVal['billingid']?>" data-action="delete" data-toggle="modal" data-target="#confirm" class="delete"><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
+                    </ul>
+                </td>
+                <td><a href=<?php echo base_url().'acp/Settings/orderdetails?ordid='.$customerVal['orderid'];?>>Details</a></td>
+            </tr>
+        <?php } ?>
+    </tbody>
+</table>
+<!-- Modal -->
+<div class="modal fade" id="confirm">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to Delete this Billing details?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
